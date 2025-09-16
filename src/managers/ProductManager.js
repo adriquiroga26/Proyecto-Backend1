@@ -42,7 +42,7 @@ export class ProductManager {
     return products.find(p => String(p.id) === String(id)) || null;
   }
 
-  /* AGREGAR PRODUCTO (id autogenerado) */
+  /* AGREGAR PRODUCTO */
   async addProduct(productData) {
     const products = await this._readFile();
 

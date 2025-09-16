@@ -5,13 +5,9 @@ import crypto from "crypto";
 const DEFAULT_PATH = path.resolve("data", "carts.json");
 
 export class CartManager {
-  /**
-   * cartFilePath: ruta al archivo JSON de carts
-   * productManager: (opcional) instancia de ProductManager para validar productos antes de agregarlos
-   */
-  constructor(cartFilePath = DEFAULT_PATH, productManager = null) {
+    constructor(cartFilePath = DEFAULT_PATH, productManager = null) {
     this.path = cartFilePath;
-    this.productManager = productManager; // opcional
+    this.productManager = productManager; 
   }
 
   async _readFile() {
@@ -41,7 +37,7 @@ export class CartManager {
     const carts = await this._readFile();
     const newCart = {
       id: this._generateId(),
-      products: [] // cada item: { product: <productId>, quantity: Number }
+      products: [] 
     };
     carts.push(newCart);
     await this._writeFile(carts);
@@ -54,11 +50,7 @@ export class CartManager {
     return carts.find(c => String(c.id) === String(id)) || null;
   }
 
-  /**
-   * Agregar producto al carrito
-   * - si productManager fue pasado, valida que el producto exista antes de agregar
-   * - suma quantity si ya existe
-   */
+  
   async addProductToCart(cartId, productId, quantity = 1) {
     const carts = await this._readFile();
     const idx = carts.findIndex(c => String(c.id) === String(cartId));
@@ -86,7 +78,7 @@ export class CartManager {
     return cart;
   }
 
-  /* (Opcional) Eliminar producto del carrito o decrementar cantidad */
+  /*Eliminar producto del carrito o decrementar cantidad */
   async removeProductFromCart(cartId, productId, removeAll = false) {
     const carts = await this._readFile();
     const idx = carts.findIndex(c => String(c.id) === String(cartId));
